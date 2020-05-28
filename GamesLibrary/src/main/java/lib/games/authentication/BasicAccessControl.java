@@ -43,6 +43,10 @@ public class BasicAccessControl implements AccessControl {
         return CurrentUser.getUser();
     }
 
+    public User changeUser(User user) {
+        return CurrentUser.getUser();
+    }
+
     @Override
     public String getPrincipalName() {
         return CurrentUser.get();

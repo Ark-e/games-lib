@@ -10,7 +10,6 @@ public class PlatformList extends Grid<Platform> {
         setSizeFull();
 
         addColumn(Platform::getName).setHeader("Name").setSortable(true).setKey("name");
-        addColumn(Platform::getUrl).setHeader("Url").setSortable(true).setKey("url");
 
         setHeightByRows(true);
     }

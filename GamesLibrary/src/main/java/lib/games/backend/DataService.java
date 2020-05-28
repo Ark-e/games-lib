@@ -67,6 +67,22 @@ public class DataService {
         return (Game) list.get(0);
     }
 
+    public List getGamesByCompany(String companyId) {
+        final List list;
+        try {
+            list =  DatabaseManager.getInstance().get("select * from public.games where developerid = '" + companyId + "' or distributorid = ' " + companyId + "'", Game.class);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list;
+    }
+
+
 
     public void addGame(Game game) {
         try {
@@ -206,7 +222,7 @@ public class DataService {
                     + user.getFullName() + "', '"
                     + user.getPassword() + "', '"
                     + user.getEmail() + "', '"
-                    + user.getAccessLevel() +"');");
+                    + user.getAccessLevel().getId() +"');");
         }
         catch (SQLException e) {
             e.printStackTrace();

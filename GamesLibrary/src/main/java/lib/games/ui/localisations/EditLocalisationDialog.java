@@ -14,20 +14,14 @@ import lib.games.ui.additional.LocalisationDataProvider;
 
 
 public class EditLocalisationDialog extends Dialog {
-    static Localisation localisation;
 
-    public EditLocalisationDialog(LocalisationDataProvider localisationDataProvider, Localisation demoLocalisation) {
+
+    public EditLocalisationDialog(LocalisationDataProvider localisationDataProvider) {
         VerticalLayout verticalLayout = new VerticalLayout();
 
         Label info = new Label("Enter locale!");
         info.setVisible(false);
         TextField locale = new TextField("Locale:");
-
-        localisation = demoLocalisation;
-
-        if (localisation != null) {
-            locale.setValue(localisation.getLocale());
-        }
 
         HorizontalLayout horizontalLayout = new HorizontalLayout();
 
@@ -36,17 +30,10 @@ public class EditLocalisationDialog extends Dialog {
                 info.setVisible(true);
             }
             else {
-                if (localisation == null) {
-                    localisation = new Localisation(locale.getValue());
-                    localisationDataProvider.saveNew(localisation);
-                    close();
-                    UI.getCurrent().getPage().reload();
-                }
-                else {
-                    localisation.setLocale(locale.getValue());
-                    close();
-                    localisationDataProvider.refreshAll();
-                }
+                Localisation localisation = new Localisation(locale.getValue());
+                localisationDataProvider.saveNew(localisation);
+                close();
+                UI.getCurrent().getPage().reload();
             }
         });
 

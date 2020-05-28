@@ -7,6 +7,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -16,10 +17,12 @@ import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
 import lib.games.authentication.AccessControl;
 import lib.games.authentication.AccessControlFactory;
+import lib.games.backend.DataService;
 import lib.games.data.AccessLevel;
 import lib.games.ui.Layout;
 import lib.games.ui.additional.CompanyDataProvider;
 import lib.games.ui.additional.ShopDataProvider;
+import lib.games.ui.games.GamesDataProvider;
 import lib.games.ui.shops.EditShopDialog;
 import lib.games.ui.shops.ShopList;
 
@@ -97,11 +100,17 @@ public class CompaniesView extends VerticalLayout implements BeforeEnterObserver
     }
 
     private void deleteCompany() {
-        if (list.getSelected() != null) {
+
+        if (list.getSelected() != null &&  DataService.getInstance().getGamesByCompany(list.getSelected().getId()) == null) {
             dataProvider.delete(list.getSelected());
             clearSelection();
             dataProvider.refreshAll();
             UI.getCurrent().getPage().reload();
+        }
+        else {
+            Notification notification = new Notification(list.getSelected().getName() + " can't be deleted!");
+            notification.setDuration(500);
+            notification.open();
         }
     }
 

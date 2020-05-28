@@ -18,6 +18,7 @@ import lib.games.authentication.AccessControl;
 import lib.games.authentication.AccessControlFactory;
 import lib.games.data.AccessLevel;
 import lib.games.ui.Layout;
+import lib.games.ui.additional.GameXDataprovider;
 import lib.games.ui.additional.ShopDataProvider;
 
 @Route(value = "shops", layout = Layout.class)
@@ -95,6 +96,8 @@ public class ShopsView extends VerticalLayout implements BeforeEnterObserver {
 
     private void deleteShop() {
         if (list.getSelected() != null) {
+            GameXDataprovider gameXDataprovider = new GameXDataprovider();
+            gameXDataprovider.deleteGameShop("shopid", list.getSelected().getId());
             dataProvider.delete(list.getSelected());
             clearSelection();
             dataProvider.refreshAll();
