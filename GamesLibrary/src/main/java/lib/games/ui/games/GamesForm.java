@@ -153,6 +153,10 @@ public class GamesForm  extends Div {
         back.addClickListener(event -> {
             viewLogic.cancelGame();
             setReadOnly(true);
+            save.setEnabled(false);
+            save.setVisible(false);
+            discard.setVisible(false);
+            discard.setEnabled(false);
         });
 
         edit = new Button("Edit");
@@ -296,6 +300,10 @@ public class GamesForm  extends Div {
             if (!distributor.isEmpty()) {
                 currentGame.setDistributor(distributor.getValue().getId());
             }
+            save.setEnabled(false);
+            save.setVisible(false);
+            discard.setVisible(false);
+            discard.setEnabled(false);
             viewLogic.saveGame(currentGame, shops.getSelectedItems(), platforms.getSelectedItems(), localisations.getSelectedItems());
         }
     }

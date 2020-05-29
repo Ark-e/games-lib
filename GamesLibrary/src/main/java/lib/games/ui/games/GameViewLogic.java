@@ -27,12 +27,12 @@ public class GameViewLogic {
     }
 
 
-    private void setFragmentParameter(String productId) {
+    private void setFragmentParameter(String gameId) {
         String fragmentParameter;
-        if (productId == null || productId.isEmpty()) {
+        if (gameId == null || gameId.isEmpty()) {
             fragmentParameter = "";
         } else {
-            fragmentParameter = productId;
+            fragmentParameter = gameId;
         }
 
         UI.getCurrent().navigate(GamesView.class, fragmentParameter);
@@ -78,7 +78,7 @@ public class GameViewLogic {
         if (game == null) {
             setFragmentParameter("");
         } else {
-            setFragmentParameter(game.getName() + "");
+            setFragmentParameter(game.getId() + "");
         }
         view.editGame(game);
     }

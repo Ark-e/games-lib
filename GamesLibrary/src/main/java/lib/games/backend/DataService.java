@@ -3,7 +3,6 @@ package lib.games.backend;
 import lib.games.data.*;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.UUID;
 
 public class DataService {
 

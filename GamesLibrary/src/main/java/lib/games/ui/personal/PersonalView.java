@@ -112,6 +112,7 @@ public class PersonalView extends VerticalLayout implements HasUrlParameter<Stri
     }
 
     public void setUser() {
+        username.setValue(user.getUsername());
         realname.setValue(user.getFullName());
         email.setValue(user.getEmail());
         password.setValue(user.getPassword());
