@@ -4,8 +4,10 @@ import com.vaadin.flow.component.UI;
 import lib.games.authentication.AccessControl;
 import lib.games.authentication.AccessControlFactory;
 import lib.games.backend.DataService;
-import lib.games.data.AccessLevel;
-import lib.games.data.Game;
+import lib.games.data.*;
+import lib.games.ui.additional.GameXDataprovider;
+
+import java.util.Set;
 
 public class GameViewLogic {
 
@@ -17,7 +19,6 @@ public class GameViewLogic {
 
 
     public void init() {
-
     }
 
     public void cancelGame() {
@@ -40,10 +41,10 @@ public class GameViewLogic {
 
     public void enter(String gameId) {
         if (gameId != null && !gameId.isEmpty()) {
-                try {
-                    final Game game = findGame(gameId);
-                    view.selectRow(game);
-                } catch (final NumberFormatException e) {
+            try {
+                final Game game = findGame(gameId);
+                view.selectRow(game);
+            } catch (final NumberFormatException e) {
             }
         } else {
             view.showForm(false);
@@ -54,20 +55,20 @@ public class GameViewLogic {
         return DataService.getInstance().getGame(gameId);
     }
 
-    public void saveNewGame(Game game) {
-        view.clearSelection();
-        view.addGame(game);
-        setFragmentParameter("");
-    }
 
-    public void saveGame(Game game) {
+    public void saveGame(Game game, Set<Shop> shopSet, Set<Platform> platformSet, Set<Localisation> localisationSet) {
         view.clearSelection();
-        view.updateGame(game);
+        view.updateGame(game, shopSet, platformSet, localisationSet);
         setFragmentParameter("");
     }
 
     public void deleteGame(Game game) {
         view.clearSelection();
+        GameXDataprovider gameXDataprovider = new GameXDataprovider();
+        gameXDataprovider.deleteGameLocalisation("gameid", game.getId());
+        gameXDataprovider.deleteGameShop("gameid", game.getId());
+        gameXDataprovider.deleteGamePlatform("gameid", game.getId());
+        DataService.getInstance().deleteCommentsByObject("gameid", game.getId());
         view.removeGame(game);
         setFragmentParameter("");
     }
@@ -82,13 +83,8 @@ public class GameViewLogic {
         view.editGame(game);
     }
 
-    public void newGame() {
-        view.clearSelection();
-        setFragmentParameter("new");
-        view.editGame(new Game("", "", "", "", "", ""));
-    }
 
     public void rowSelected(Game game) {
-            editGame(game);
+        editGame(game);
     }
 }

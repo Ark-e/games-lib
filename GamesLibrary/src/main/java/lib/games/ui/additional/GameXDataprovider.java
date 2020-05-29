@@ -18,8 +18,8 @@ public class GameXDataprovider {
         DataService.getInstance().addGamePlatform(gamePlatform);
     }
 
-    public void deleteGamePlatform(String id, String type) {
-        DataService.getInstance().deleteGamePlatform(id, type);
+    public void deleteGamePlatform(String type, String id) {
+        DataService.getInstance().deleteGamePlatform(type, id);
     }
 
     public List getGamePlatformBy(String type, String id) {
@@ -30,8 +30,8 @@ public class GameXDataprovider {
         DataService.getInstance().addGameShop(gameShop);
     }
 
-    public void deleteGameShop(String id, String type) {
-        DataService.getInstance().deleteGameShop(id, type);
+    public void deleteGameShop(String type, String id) {
+        DataService.getInstance().deleteGameShop(type, id);
     }
 
     public List getGameShopBy(String type, String id) {
@@ -42,8 +42,8 @@ public class GameXDataprovider {
         DataService.getInstance().addGameLocalisation(gameLocalisation);
     }
 
-    public void deleteGameLocalisation(String id, String type) {
-        DataService.getInstance().deleteGameLocalisation(id, type);
+    public void deleteGameLocalisation(String type, String id) {
+        DataService.getInstance().deleteGameLocalisation(type, id);
     }
 
     public List getGameLocalisationBy(String type, String id) {

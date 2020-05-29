@@ -14,6 +14,7 @@ import com.vaadin.flow.theme.lumo.Lumo;
 import lib.games.authentication.AccessControl;
 import lib.games.authentication.AccessControlFactory;
 import lib.games.authentication.CurrentUser;
+import lib.games.backend.DataService;
 import lib.games.data.AccessLevel;
 import lib.games.data.Game;
 import lib.games.data.User;
@@ -32,7 +33,6 @@ public class UsersView extends VerticalLayout implements BeforeEnterObserver {
     private Button promoteButton;
     private Button demoteButton;
 
-    private final UsersViewLogic viewLogic = new UsersViewLogic(this);
     private final UsersDataProvider dataProvider = new UsersDataProvider();
 
     public UsersView() {
@@ -107,9 +107,11 @@ public class UsersView extends VerticalLayout implements BeforeEnterObserver {
 
     private void deleteUser() {
         if (list.getSelected() != null) {
+            DataService.getInstance().deleteCommentsByObject("userid", list.getSelected().getId());
             dataProvider.delete(list.getSelected());
             clearSelection();
             dataProvider.refreshAll();
+            UI.getCurrent().getPage().reload();
         }
     }
 

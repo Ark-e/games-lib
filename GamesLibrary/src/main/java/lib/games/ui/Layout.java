@@ -25,7 +25,9 @@ import lib.games.ui.games.GamesView;
 import lib.games.ui.personal.PersonalView;
 import lib.games.ui.shops.ShopsView;
 import lib.games.ui.users.UsersView;
-
+/*
+* Боковая панель
+* */
 public class Layout extends AppLayout implements RouterLayout {
 
     private final Button logoutButton;
@@ -105,17 +107,5 @@ public class Layout extends AppLayout implements RouterLayout {
         icon.setSize("32px");
         return routerButton;
     }
-
-
-//    @Override
-//    protected void onAttach(AttachEvent attachEvent) {
-//        super.onAttach(attachEvent);
-//
-//        attachEvent.getUI().addShortcutListener(() -> logout(), Key.KEY_L,
-//                KeyModifier.CONTROL);
-//        VerticalLayout verticalLayout = new VerticalLayout();
-//        verticalLayout.add(viewGamesButton, viewUsersButton, viewPersonalButton, logoutButton);
-//        addToDrawer(verticalLayout);
-//    }
 
 }

@@ -27,8 +27,6 @@ public class Game implements Serializable {
     private String releaseYear;
     private String description;
     private String genre;
-    private List images;
-    private List videos;
 
     public Game(String name, String icon, String developer, String distributor, String releaseYear, String genre) {
         this.id = UUID.randomUUID().toString();
@@ -56,22 +54,6 @@ public class Game implements Serializable {
 
     public void setGenre(String genre) {
         this.genre = genre;
-    }
-
-    public List getImages() {
-        return images;
-    }
-
-    public void setImages(List images) {
-        this.images = images;
-    }
-
-    public List getVideos() {
-        return videos;
-    }
-
-    public void setVideos(List videos) {
-        this.videos = videos;
     }
 
     public String getId() {

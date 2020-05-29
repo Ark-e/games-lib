@@ -2,11 +2,13 @@ package lib.games.ui.games;
 
 import com.vaadin.flow.data.provider.ListDataProvider;
 import lib.games.backend.DataService;
-import lib.games.data.Game;
+import lib.games.data.*;
+import lib.games.ui.additional.GameXDataprovider;
 
 import java.util.Collection;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Set;
 
 public class GamesDataProvider extends ListDataProvider<Game> {
 
@@ -16,15 +18,26 @@ public class GamesDataProvider extends ListDataProvider<Game> {
         super(DataService.getInstance().getAllGames());
     }
 
-    public void save(Game game) {
+    public void save(Game game, Set<Shop> shopSet, Set<Platform> platformSet, Set<Localisation> localisationSet) {
+        GameXDataprovider gameXDataprovider = new GameXDataprovider();
+        gameXDataprovider.deleteGamePlatform("gameid", game.getId());
+        gameXDataprovider.deleteGameShop("gameid", game.getId());
+        gameXDataprovider.deleteGameLocalisation("gameid", game.getId());
+
+        for (Shop shop: shopSet) {
+            gameXDataprovider.saveGameShop(new GameShop(game.getId(), shop.getId()));
+        }
+
+        for (Platform platform: platformSet) {
+            gameXDataprovider.saveGamePlatform(new GamePlatform(game.getId(), platform.getId()));
+        }
+
+        for (Localisation localisation: localisationSet) {
+            gameXDataprovider.saveGameLocalisation(new GameLocalisation(game.getId(), localisation.getId()));
+        }
+
         DataService.getInstance().updateGame(game);
     }
-
-
-    public void saveNew(Game game) {
-        DataService.getInstance().addGame(game);
-    }
-
 
     public void delete(Game game) {
         DataService.getInstance().deleteGame(game.getId());

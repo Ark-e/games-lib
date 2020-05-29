@@ -291,6 +291,14 @@ public class DataService {
         }
     }
 
+    public void deleteCommentsByObject(String type, String id) {
+        try {
+            DatabaseManager.getInstance().executeUpdate("DELETE FROM public.comments where " + type + " ='"+ id +"';");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public List getAllUsers() {
         try {
@@ -575,6 +583,22 @@ public class DataService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public Localisation getLocalisations(String id) {
+        List list;
+        try {
+            list =  DatabaseManager.getInstance().get("select * from public.localisations where id ='"
+                    + id +"';", Localisation.class );
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        if (list.isEmpty()) {
+            return null;
+        }
+        return (Localisation) list.get(0);
     }
 
     public void addLocalisation(Localisation localisation) {
